@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<style>
+    .btn {
+        color: blue;
+    }
+</style>
+<body>
+
+<div id="mvvm">
+    <input type="text" v-model="someStr">
+    <input type="text" v-model="someStrhahaha">
+    <p v-class="className" class="abc">
+        {{someStr}}
+    </p>
+    <p v-class="className" class="abc">
+        {{someStrhahaha}}
+    </p>
+    <p>{{ getHelloWord }}</p>
+    <p v-html="htmlStr"></p>
+    <button v-on:click="clickBtn">change model</button>
+</div>
+
+<script src="./js/observer.js"></script>
+<script src="./js/watcher.js"></script>
+<script src="./js/compile.js"></script>
+<script src="./js/mvvm.js"></script>
+<script>
+    var vm = new Jiangjiax({
+        el: '#mvvm',
+        data: {
+            someStr: 'hello',
+            className: 'btn',
+            htmlStr: '<span style="color: #f00;">red</span>',
+            someStrhahaha: 'World'
+        },
+
+        computed: {
+            getHelloWord: function() {
+                return this.someStr + this.someStrhahaha;
+            }
+        },
+
+        methods: {
+            clickBtn: function(e) {
+                this.someStrhahaha = "change";
+            }
+        }
+    });
+
+    vm.$watch('child.someStr', function() {
+        console.log(arguments);
+    });
+</script>
+
+</body>
+</html>
